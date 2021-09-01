@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>非受阻组件</title>
+    <style>
+        .title {
+            background-color: orange;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <!-- 用于对组件标签属性进行限制 -->
+    <script src="../js/prop-types.js"></script>
+    <script type='text/babel'>
+        //创建组件
+        class Demo extends React.Component{
+            render(){
+
+                return (
+                    <form action="http://www.atguigu.com" onSubmit={this.handleSubmit}>
+                        用户名:<input ref={(c)=>this.username=c} type="text" name="username" />
+                        密码<input ref={(c)=>this.password=c} type="password" name="password"/> 
+                        <button>登录</button>  
+                    </form>
+                )
+            }
+            handleSubmit = (event)=>{
+                event.preventDefault();
+                const {username,password} =  this;
+                console.log("@",username,password)
+                alert(username.value,password.value)
+            }
+
+        }
+        
+        
+        
+
+        ReactDOM.render(<Demo/>,document.getElementById('test'))
+        
+    
+    
+    </script>
+</body>
+
+</html>

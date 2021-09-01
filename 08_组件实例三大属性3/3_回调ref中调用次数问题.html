@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2_回调ref中调用次数问题</title>
+    <style>
+        .title {
+            background-color: orange;
+            width: 200px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="test"></div>
+    <div id="test2"></div>
+    <div id="test3"></div>
+    <script src="../js/react.development.js"></script>
+    <script src="../js/react-dom.development.js"></script>
+    <script src="../js/babel.min.js"></script>
+    <!-- 用于对组件标签属性进行限制 -->
+    <script src="../js/prop-types.js"></script>
+    <script type='text/babel'>
+        //创建组件
+        class Demo extends React.Component{
+            state = {isHot:true};
+
+            render(){
+                const {isHot} = this.state;
+                return (
+                    <div>
+                        <h2>今天天气很{isHot?"hot":"nothot"}</h2>
+                    {/*<input ref={c=>{this.input1 = c;console.log('@',c)}} type="text" placeholder="点击按钮提示数据"/>&nbsp;<br/>*/}
+                        <input ref={this.saveInput} type="text" placeholder="点击按钮提示数据"/>&nbsp;<br/>    
+                        <button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
+                        <button onClick={this.changeWeather}>点我切换天气</button>&nbsp;
+                    </div>
+                )
+            }
+            showData = ()=>{
+                const {input1} = this;
+                alert(input1.value)
+            }
+            changeWeather = ()=>{
+                const {isHot} = this.state;
+                this.setState({isHot:!isHot})
+            }
+            saveInput = c=>{this.input1 = c;console.log('@',c)}
+
+        }
+        
+        
+        
+
+        ReactDOM.render(<Demo/>,document.getElementById('test'))
+        
+    
+    
+    </script>
+</body>
+
+</html>
